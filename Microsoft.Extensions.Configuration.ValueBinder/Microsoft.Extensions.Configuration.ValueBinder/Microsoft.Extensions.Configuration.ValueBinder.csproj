@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+
+    <DebugType Condition="'$(TargetFramework)' != 'netstandard2.0'">full</DebugType>
+    <DebugType Condition="'$(TargetFramework)' == 'netstandard2.0'">portable</DebugType>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">True</GeneratePackageOnBuild>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/pengweiqhca/Microsoft.Extensions.Configuration.ValueBinder</RepositoryUrl>
+    <PackageProjectUrl>$(RepositoryUrl)/Apollo</PackageProjectUrl>
+    <IncludeSymbols>True</IncludeSymbols>
+    <Version>1.0.0.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2018.*" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.*" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.*" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

@@ -12,8 +12,6 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ConfigureValueExtensions
     {
-        private static readonly object SyncLock = new object();
-
         /// <summary>Attempts to bind the given object instance to configuration section value by FileConfigurationProvider.</summary>
         /// <param name="services">The <see cref="T:IServiceCollection" /> to add the service to.</param>
         /// <param name="section">The configuration value to bind.</param>
@@ -29,10 +27,9 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection ConfigureValue<TOptions>(this IServiceCollection services, string name, IConfigurationSection section, [NotNull] Func<FileConfigurationProvider> creator) where TOptions : class
         {
             if (creator == null) throw new ArgumentNullException(nameof(creator));
-          
-            FileConfigurationProvider provider = null;
+
             return services.AddSingleton<IOptionsChangeTokenSource<TOptions>>(new ConfigurationChangeTokenSource<TOptions>(name, section))
-                .Configure<TOptions>(name, options => Bind(options, section.Value, ref provider, creator));
+                .Configure<TOptions>(name, options => Bind(options, section.Value, creator));
         }
 
         /// <summary>Attempts to bind the given object instance to configuration section value by FileConfigurationProvider.</summary>
@@ -43,11 +40,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if (creator == null) throw new ArgumentNullException(nameof(creator));
 
-            FileConfigurationProvider provider = null;
             return services.AddSingleton<IOptionsChangeTokenSource<TOptions>>(new ConfigurationChangeTokenSource<TOptions>(configuration))
                 .AddOptions()
                 .AddSingleton<IConfigureOptions<TOptions>>(new SectionValueConfigureOptions<TOptions>(configuration,
-                    (options, value) => Bind(options, value, ref provider, creator)));
+                    (options, value) => Bind(options, value, creator)));
         }
 
         /// <summary>Attempts to bind the given object instance to configuration section value by FileConfigurationProvider.</summary>
@@ -67,20 +63,14 @@ namespace Microsoft.Extensions.DependencyInjection
             if (value == null) throw new ArgumentNullException(nameof(value));
             if (creator == null) throw new ArgumentNullException(nameof(creator));
 
-            FileConfigurationProvider provider = null;
-            return services.Configure<TOptions>(name, options => Bind(options, value, ref provider, creator));
+            return services.Configure<TOptions>(name, options => Bind(options, value, creator));
         }
 
-        private static void Bind<TOptions>(TOptions options, string value, ref FileConfigurationProvider provider, Func<FileConfigurationProvider> creator) where TOptions : class
+        private static void Bind<TOptions>(TOptions options, string value, Func<FileConfigurationProvider> creator) where TOptions : class
         {
             if (string.IsNullOrWhiteSpace(value)) return;
 
-            if (provider == null)
-                lock (SyncLock)
-                    if (provider == null)
-                        provider = creator();
-
-            Bind(options, value, provider);
+            Bind(options, value, creator());
         }
 
         /// <summary>Attempts to bind the given object instance to configuration section value by FileConfigurationProvider.</summary>

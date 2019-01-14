@@ -7,9 +7,8 @@ using Xunit;
 
 namespace Microsoft.Extensions.Configuration.ValueBinder.UnitTest
 {
-    public class ConfigureValueTest
+    public class ConfigureJsonValueTest
     {
-        private static readonly Func<FileConfigurationProvider> ProviderCreator = () => new JsonConfigurationProvider(new JsonConfigurationSource { Optional = true });
         private static readonly IDictionary<string, string> Data = new Dictionary<string, string> { ["options"] = Json };
         private const string Json = "{ \"name\": \"Jone\", \"age\": \"30\" }";
 
@@ -17,7 +16,7 @@ namespace Microsoft.Extensions.Configuration.ValueBinder.UnitTest
         public void ConfigureConfiguration()
         {
             var options = ConfigureOptions(builder => builder.AddInMemoryCollection(Data),
-                (cfg, services) => services.ConfigureValue<TestOptions>(cfg.GetSection("options"), ProviderCreator));
+                (cfg, services) => services.ConfigureJsonValue<TestOptions>(cfg.GetSection("options")));
 
             AssertOptions(options.CurrentValue, "Jone", 30);
         }
@@ -26,7 +25,7 @@ namespace Microsoft.Extensions.Configuration.ValueBinder.UnitTest
         public void ConfigureConfigurationWithName()
         {
             var options = ConfigureOptions(builder => builder.AddInMemoryCollection(Data),
-                (cfg, services) => services.ConfigureValue<TestOptions>("Jone", cfg.GetSection("options"), ProviderCreator));
+                (cfg, services) => services.ConfigureJsonValue<TestOptions>("Jone", cfg.GetSection("options")));
 
             AssertOptions(options.CurrentValue, null, 0);
 
@@ -34,17 +33,17 @@ namespace Microsoft.Extensions.Configuration.ValueBinder.UnitTest
         }
 
         [Fact]
-        public void ConfigureValue()
+        public void ConfigureJsonValue()
         {
-            var options = ConfigureOptions(services => services.ConfigureValue<TestOptions>(Json, ProviderCreator));
+            var options = ConfigureOptions(services => services.ConfigureJsonValue<TestOptions>(Json));
 
             AssertOptions(options.CurrentValue, "Jone", 30);
         }
 
         [Fact]
-        public void ConfigureValueWithName()
+        public void ConfigureJsonValueWithName()
         {
-            var options = ConfigureOptions(services => services.ConfigureValue<TestOptions>("Jone", Json, ProviderCreator));
+            var options = ConfigureOptions(services => services.ConfigureJsonValue<TestOptions>("Jone", Json));
 
             AssertOptions(options.CurrentValue, null, 0);
 
@@ -52,10 +51,10 @@ namespace Microsoft.Extensions.Configuration.ValueBinder.UnitTest
         }
 
         [Fact]
-        public void ConfigureValues()
+        public void ConfigureJsonValues()
         {
             var options = ConfigureOptions(builder => builder.AddInMemoryCollection(new Dictionary<string, string>(Data) {["options:Same"] = "{ \"name\": \"Same\", \"age\": 20 }"}),
-                (cfg, services) => services.ConfigureValues<TestOptions>(cfg.GetSection("options"), ProviderCreator));
+                (cfg, services) => services.ConfigureJsonValues<TestOptions>(cfg.GetSection("options")));
 
             AssertOptions(options.CurrentValue, "Jone", 30);
             AssertOptions(options.Get("Same"), "Same", 20);
@@ -68,7 +67,7 @@ namespace Microsoft.Extensions.Configuration.ValueBinder.UnitTest
             var data = new Dictionary<string, string>(Data);
 
             var options = ConfigureOptions(builder => builder.Add(provider = new TestProvider(data)),
-                (cfg, services) => services.ConfigureValue<TestOptions>(cfg.GetSection("options"), ProviderCreator));
+                (cfg, services) => services.ConfigureJsonValue<TestOptions>(cfg.GetSection("options")));
 
             Assert.NotNull(provider);
 
@@ -86,7 +85,7 @@ namespace Microsoft.Extensions.Configuration.ValueBinder.UnitTest
         {
             var options = ConfigureOptions(services =>
             {
-                services.ConfigureValue<TestOptions>(Json, ProviderCreator);
+                services.ConfigureJsonValue<TestOptions>(Json);
 
                 services.Configure<TestOptions>(o =>
                 {

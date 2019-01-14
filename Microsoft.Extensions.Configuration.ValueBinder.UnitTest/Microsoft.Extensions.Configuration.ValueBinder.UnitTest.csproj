@@ -7,15 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.*" />
     <PackageReference Include="xunit" Version="2.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Extensions.Configuration.ValueBinder\Microsoft.Extensions.Configuration.ValueBinder.csproj" />
+    <ProjectReference Include="..\Microsoft.Extensions.Configuration.ValueBinder.Json\Microsoft.Extensions.Configuration.ValueBinder.Json.csproj" />
   </ItemGroup>
 
 </Project>

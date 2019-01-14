@@ -3,7 +3,7 @@
 How to use
 =============
 
-## Install the [Microsoft.Extensions.Configuration.ValueBinder.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.ValueBinder.Json) package.
+## Install the [Tuhu.Extensions.Configuration.ValueBinder.Json](https://www.nuget.org/packages/Tuhu.Extensions.Configuration.ValueBinder.Json) package.
 
 ``` PS
 Install-Package Tuhu.Extensions.Configuration.ValueBinder.Json
@@ -29,7 +29,7 @@ Map child section `Key` to options name, map empty section `key` or `Value`(if i
 services.ConfigureJsonValues<TOptions>(IConfiguration configuration, [NotNull] Func<FileConfigurationProvider> creator)
 ```
 
-## Install the [Microsoft.Extensions.Configuration.ValueBinder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.ValueBinder) package.
+## Install the [Tuhu.Extensions.Configuration.ValueBinder](https://www.nuget.org/packages/Tuhu.Extensions.Configuration.ValueBinder) package.
 
 ``` PS
 Install-Package Tuhu.Extensions.Configuration.ValueBinder

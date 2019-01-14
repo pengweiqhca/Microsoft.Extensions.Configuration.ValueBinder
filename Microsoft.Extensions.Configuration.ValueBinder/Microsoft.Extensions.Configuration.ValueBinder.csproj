@@ -16,6 +16,11 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
     <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
+    <Authors>Wei Peng</Authors>
+    <PackageId>Tuhu.Extensions.Configuration.ValueBinder</PackageId>
+    <PackageTags>Microsoft.Extensions.Configuration.Json Microsoft.Extensions.Configuration.Xml JsonBind XmlBind ValueBind</PackageTags>
+    <Description>Bind complex value(such as JSON, XML) to options</Description>
+    <Copyright>Copyright © 2019</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

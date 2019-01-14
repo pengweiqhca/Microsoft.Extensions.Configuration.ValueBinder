@@ -6,7 +6,7 @@ How to use
 Install the [Nuget](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.ValueBinder) package.
 
 ``` PS
-Install-Package Microsoft.Extensions.Configuration.ValueBinder
+Install-Package Tuhu.Extensions.Configuration.ValueBinder
 ```
 In your testing project, add the following framework
 

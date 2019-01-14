@@ -3,7 +3,33 @@
 How to use
 =============
 
-Install the [Nuget](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.ValueBinder) package.
+## Install the [Microsoft.Extensions.Configuration.ValueBinder.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.ValueBinder.Json) package.
+
+``` PS
+Install-Package Tuhu.Extensions.Configuration.ValueBinder.Json
+```
+In your testing project, add the following framework
+### Bind IConfigurationSection json value
+
+``` C#
+services.ConfigureJsonValue<TOptions>([string name, ]IConfigurationSection section, [NotNull] Func<FileConfigurationProvider> creator)
+```
+
+### Bind json value
+
+``` C#
+services.ConfigureJsonValue<TOptions>([string name, ]string value, [NotNull] Func<FileConfigurationProvider> creator)
+```
+
+### Bind IConfiguration json values
+
+Map child section `Key` to options name, map empty section `key` or `Value`(if is IConfigurationSection) to default options
+
+``` C#
+services.ConfigureJsonValues<TOptions>(IConfiguration configuration, [NotNull] Func<FileConfigurationProvider> creator)
+```
+
+## Install the [Microsoft.Extensions.Configuration.ValueBinder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.ValueBinder) package.
 
 ``` PS
 Install-Package Tuhu.Extensions.Configuration.ValueBinder

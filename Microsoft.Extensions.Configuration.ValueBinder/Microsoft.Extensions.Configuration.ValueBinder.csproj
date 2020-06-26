@@ -21,7 +21,15 @@
     <PackageTags>Microsoft.Extensions.Configuration.Json Microsoft.Extensions.Configuration.Xml JsonBind XmlBind ValueBind</PackageTags>
     <Description>Bind complex value(such as JSON, XML) to options</Description>
     <Copyright>Copyright © 2019</Copyright>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2018.*" PrivateAssets="All" />
